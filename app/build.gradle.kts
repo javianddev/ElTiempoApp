@@ -61,14 +61,14 @@ dependencies {
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
-    implementation("androidx.compose.material3:material3")
+    implementation("androidx.compose.material3:material3:1.1.2")
+    implementation("androidx.compose.material:material:1.3.1")
 
     //ViewModel
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
 
     //Navegación
     implementation("androidx.navigation:navigation-compose:2.5.3")
-    implementation("androidx.compose.material:material:1.3.1")
 
     //Iconos
     implementation("androidx.compose.material:material-icons-extended:1.3.0")
@@ -76,6 +76,7 @@ dependencies {
     //Room
     implementation("androidx.room:room-runtime:2.5.0")
     implementation("androidx.room:room-ktx:2.5.0")
+    implementation("com.google.android.material:material:1.11.0")
     ksp("androidx.room:room-compiler:2.5.0")
 
     //Dagger y Hilt
@@ -90,7 +91,6 @@ dependencies {
     // Coil
     implementation("io.coil-kt:coil-compose:2.5.0")
 
-
     //Testing
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
@@ -99,6 +99,8 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
+    kaptAndroidTest("com.google.dagger:hilt-android-compiler:2.48")
+    kaptTest("com.google.dagger:hilt-android-compiler:2.48.")
 }
 
 kapt {

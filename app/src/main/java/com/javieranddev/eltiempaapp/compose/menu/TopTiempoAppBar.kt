@@ -29,7 +29,7 @@ fun TopTiempoAppBar(scrollBehavior: TopAppBarScrollBehavior, navController: NavH
             Image(
                 painter = painterResource(id = R.drawable.app_bar),
                 contentDescription = stringResource(id = R.string.app_icon),
-                modifier = Modifier.size(dimensionResource(id = R.dimen.image_100))
+                modifier = Modifier.size(dimensionResource(id = R.dimen.dimen_100))
             )
         },
         scrollBehavior = scrollBehavior,

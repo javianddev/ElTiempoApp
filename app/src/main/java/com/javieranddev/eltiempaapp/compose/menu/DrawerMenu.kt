@@ -3,13 +3,17 @@ package com.javieranddev.eltiempaapp.compose.menu
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.ScaffoldState
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Copyright
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -37,7 +41,7 @@ fun DrawerMenu(scope:CoroutineScope, scaffoldState: ScaffoldState, navController
         modifier = Modifier
             .background(MaterialTheme.colorScheme.primary)
             .fillMaxSize()
-    ){
+    ) {
 
         Image(
             painter = painterResource(R.drawable.app_bar),
@@ -48,13 +52,15 @@ fun DrawerMenu(scope:CoroutineScope, scaffoldState: ScaffoldState, navController
         )
 
         AppScreenItems.routes.forEach {
-            DrawerMenuItem(it, scope, scaffoldState){
-                navController.navigate(it.route){
+            DrawerMenuItem(it, scope, scaffoldState) {
+                navController.navigate(it.route) {
                     launchSingleTop = true //no crea múltiples instancias de la misma pantalla
                     restoreState = true //recompone la pantalla por si ha habido algún cambio
                 }
             }
         }
+        Spacer(modifier = Modifier.weight(1f))
+        TiempoAppInfo()
     }
 }
 
@@ -91,6 +97,41 @@ fun DrawerMenuItem(screen: AppScreen, scope: CoroutineScope, scaffoldState: Scaf
 
 }
 
+@Composable
+fun TiempoAppInfo(){
+
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center,
+        modifier = Modifier
+            .padding(dimensionResource(id = R.dimen.padding_small))
+            .fillMaxWidth()
+    ){
+        Icon(
+            imageVector = Icons.Filled.Copyright,
+            contentDescription = stringResource(id = R.string.copyright),
+            tint = MaterialTheme.colorScheme.tertiary
+        )
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier
+                .padding(horizontal = dimensionResource(id = R.dimen.padding_small))
+        ){
+            Text(
+                text = stringResource(id = R.string.devName),
+                style = MaterialTheme.typography.bodyLarge,
+                color = MaterialTheme.colorScheme.tertiary
+            )
+            Text(
+                text = stringResource(id = R.string.devNick),
+                style = MaterialTheme.typography.bodyLarge,
+                color = MaterialTheme.colorScheme.tertiary
+            )
+        }
+
+    }
+
+}
 
 @Preview
 @Composable

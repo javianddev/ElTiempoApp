@@ -6,10 +6,19 @@
     <string name="app_icon">El Tiempo</string>
     <string name="menu_icon">Menú</string>
     <string name="official_logo">Logo oficial El tiempo</string>
-
+    <string name="search">Buscar</string>
+    <string name="mic">Usar micrófono</string>
+    <string name="copyright">Derechos reservados</string>
+    <string name="back">Volver atrás</string>
 
     <!-- Navegación -->
     <string name="home">Inicio</string>
     <string name="stats">Estadísticas</string>
     <string name="about">Acerca de</string>
+    <string name="tiempo">Tiempo</string>
+
+    <!-- Textos -->
+    <string name="search_city">Busca tu ciudad</string>
+    <string name="devName">Fco Javier Giráldez Delgado</string>
+    <string name="devNick">JavierAndDev</string>
 </resources>
