@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">El Tiempo</string>
+
+
+    <!-- CONTENT DESCRIPTION-->
+    <string name="app_icon">El Tiempo</string>
+    <string name="menu_icon">Menú</string>
+    <string name="official_logo">Logo oficial El tiempo</string>
+
+
+    <!-- Navegación -->
+    <string name="home">Inicio</string>
+    <string name="stats">Estadísticas</string>
+    <string name="about">Acerca de</string>
+</resources>
