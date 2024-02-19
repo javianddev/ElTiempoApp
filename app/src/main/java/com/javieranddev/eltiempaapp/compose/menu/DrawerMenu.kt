@@ -1,5 +1,6 @@
 package com.javieranddev.eltiempaapp.compose.menu
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -26,6 +27,7 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.javieranddev.eltiempaapp.compose.navigation.AppScreen
@@ -54,6 +56,9 @@ fun DrawerMenu(scope:CoroutineScope, scaffoldState: ScaffoldState, navController
         AppScreenItems.routes.forEach {
             DrawerMenuItem(it, scope, scaffoldState) {
                 navController.navigate(it.route) {
+                    popUpTo(navController.graph.findStartDestination().id) {
+                        saveState = true
+                    }
                     launchSingleTop = true //no crea múltiples instancias de la misma pantalla
                     restoreState = true //recompone la pantalla por si ha habido algún cambio
                 }

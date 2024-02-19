@@ -73,6 +73,9 @@ dependencies {
     //Iconos
     implementation("androidx.compose.material:material-icons-extended:1.3.0")
 
+    // Kotlin serialization
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
+
     //Room
     implementation("androidx.room:room-runtime:2.5.0")
     implementation("androidx.room:room-ktx:2.5.0")

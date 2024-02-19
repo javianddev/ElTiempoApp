@@ -1,4 +1,5 @@
-package com.javieranddev.eltiempaapp.compose.home
+package com.javieranddev.eltiempaapp.compose.tiempo
+
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -10,27 +11,26 @@ import androidx.compose.material3.SearchBar
 import androidx.compose.material3.SearchBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.javieranddev.eltiempaapp.R
+import com.javieranddev.eltiempaapp.viewmodel.TiempoViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TiempoScreen(navController: NavController) {
+fun TiempoScreen(navController: NavController, viewModel: TiempoViewModel = hiltViewModel()) {
 
-    var name by remember { mutableStateOf("") }
+    val searchBarUiState by viewModel.searchBarState
 
     SearchBar(
-        query = name,
-        onQueryChange = { name = it },
-        onSearch = {  }, /*TODO VA A FUNCIONAR IGUAL QUE LA PLAYSTORE.*/
-        active = true,
-        onActiveChange = {  },
+        query = searchBarUiState.query,
+        onQueryChange = { viewModel.setQuery(it) },
+        onSearch = { viewModel.setActive(false) },
+        active = searchBarUiState.active,
+        onActiveChange = { viewModel.setActive(it) },
         placeholder = { stringResource(id = R.string.search_city) },
         leadingIcon = {
             IconButton(onClick = { navController.navigateUp() }) { /*REVISAR*/

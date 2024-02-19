@@ -10,7 +10,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import com.javieranddev.eltiempaapp.compose.about.AboutScreen
 import com.javieranddev.eltiempaapp.compose.home.HomeScreen
-import com.javieranddev.eltiempaapp.compose.home.TiempoScreen
+import com.javieranddev.eltiempaapp.compose.tiempo.TiempoScreen
 import com.javieranddev.eltiempaapp.compose.stats.StatsScreen
 
 @Composable
@@ -24,12 +24,12 @@ fun TiempoAppNavHost(navController: NavHostController, modifier: Modifier = Modi
     ){
 
         composable(route = AppScreen.HomeScreen.route){
-            HomeScreen(navigateToTiempoScreen = {navController.navigate(AppScreen.TiempoScreen.route)})
+            HomeScreen(navigateToTiempoScreen = {
+                    navController.navigate(AppScreen.TiempoScreen.route)
+            })
         }
 
-        composable(route = AppScreen.TiempoScreen.route){
-            TiempoScreen(navController = navController)
-        }
+        tiempoNavGraph(navController = navController)
 
         statsNavGraph(navController = navController)
 
@@ -39,6 +39,16 @@ fun TiempoAppNavHost(navController: NavHostController, modifier: Modifier = Modi
 
 }
 
+fun NavGraphBuilder.tiempoNavGraph(navController: NavController){
+    navigation(
+        startDestination = AppScreen.TiempoScreen.route,
+        route = Graph.Tiempo.route
+    ){
+        composable(route = AppScreen.TiempoScreen.route){
+            TiempoScreen(navController = navController)
+        }
+    }
+}
 
 fun NavGraphBuilder.statsNavGraph(navController: NavController){
     navigation(
