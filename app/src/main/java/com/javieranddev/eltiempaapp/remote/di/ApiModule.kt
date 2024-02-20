@@ -35,7 +35,7 @@ class ApiModule {
     @Provides
     @Singleton
     fun provideTiempoApiService(retrofit: Retrofit): ApiTiempoService {
-        return retrofit.create(apiTiempoService::class.java)
+        return retrofit.create(ApiTiempoService::class.java)
     }
 
 }

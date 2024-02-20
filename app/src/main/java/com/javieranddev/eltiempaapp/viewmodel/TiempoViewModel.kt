@@ -13,16 +13,20 @@ class TiempoViewModel @Inject constructor(): ViewModel(){
     val searchBarState: MutableState<SearchBarUiState> = _searchBarState
 
     fun setQuery(query: String){
-        _searchBarState.value = _searchBarState.value.copy(query = query.lowercase())
+        _searchBarState.value = _searchBarState.value.copy(query = query)
     }
 
     fun setActive(active: Boolean){
         _searchBarState.value = _searchBarState.value.copy(active = active)
     }
+
+    fun changeTextValue(query: String){
+        _searchBarState.value = _searchBarState.value.copy(query = query.replace(Regex("[\\[\\]]"), ""))
+    }
 }
 
 
 data class SearchBarUiState(
-    val active: Boolean = false,
+    val active: Boolean = true,
     val query: String = "",
 )

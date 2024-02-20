@@ -1,6 +1,7 @@
 package com.javieranddev.eltiempaapp.compose.tiempo
 
 
+import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Mic
@@ -13,10 +14,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.javieranddev.eltiempaapp.R
+import com.javieranddev.eltiempaapp.utils.SpeechToText
 import com.javieranddev.eltiempaapp.viewmodel.TiempoViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -24,6 +27,13 @@ import com.javieranddev.eltiempaapp.viewmodel.TiempoViewModel
 fun TiempoScreen(navController: NavController, viewModel: TiempoViewModel = hiltViewModel()) {
 
     val searchBarUiState by viewModel.searchBarState
+    val context = LocalContext.current
+    val speechToText = rememberLauncherForActivityResult(
+        contract = SpeechToText(context),
+        onResult = {
+            viewModel.changeTextValue(it.toString())
+        }
+    )
 
     SearchBar(
         query = searchBarUiState.query,
@@ -42,7 +52,7 @@ fun TiempoScreen(navController: NavController, viewModel: TiempoViewModel = hilt
             }
         },
         trailingIcon = {
-            IconButton(onClick = { /*TODO RECONOCIMIENTO DE VOZ*/ }) {
+            IconButton(onClick = { speechToText.launch(Unit) }) {
                 Icon(
                     imageVector = Icons.Filled.Mic,
                     contentDescription = stringResource(id = R.string.mic),

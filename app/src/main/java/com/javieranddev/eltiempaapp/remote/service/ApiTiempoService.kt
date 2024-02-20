@@ -6,7 +6,7 @@ import retrofit2.http.GET
 
 interface ApiTiempoService {
 
-    @GET(Constants.getProvinces)
+    @GET(Constants.GET_PROVINCES)
     suspend fun getProvinces(): ProvinceResponse
 
 

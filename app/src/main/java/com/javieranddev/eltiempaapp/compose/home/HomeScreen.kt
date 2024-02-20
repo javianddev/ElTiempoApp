@@ -1,5 +1,6 @@
 package com.javieranddev.eltiempaapp.compose.home
 
+import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -21,25 +22,39 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.javieranddev.eltiempaapp.R
+import com.javieranddev.eltiempaapp.utils.SpeechToText
+import com.javieranddev.eltiempaapp.viewmodel.HomeViewModel
 
 @Composable
-fun HomeScreen(modifier: Modifier = Modifier, navigateToTiempoScreen: () -> Unit){
+fun HomeScreen(modifier: Modifier = Modifier, navigateToTiempoScreen: () -> Unit, viewModel: HomeViewModel = hiltViewModel()){
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
             .fillMaxWidth()
     ){
-        HomeSearchBarButton(navigateToTiempoScreen)
+        HomeSearchBarButton(navigateToTiempoScreen) { viewModel.changeTextValue(it) }
     }
 }
 
+/*TODO IMPLEMENTADA LA FUNCIÓN PARA RECONOCER VOZ, AHORA HAY QUE IMPLEMENTAR QUE SE BUSQUE*/
 @Composable
-fun HomeSearchBarButton(navigateToTiempoScreen:() -> Unit){
+fun HomeSearchBarButton(navigateToTiempoScreen: () -> Unit, changeTextValue: (String) -> Unit){
+
+    val context = LocalContext.current
+    val speechToText = rememberLauncherForActivityResult(
+        contract = SpeechToText(context),
+        onResult = {
+            changeTextValue(it.toString())
+        }
+    )
+
     Box(
         modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_medium))
     ){
@@ -62,7 +77,7 @@ fun HomeSearchBarButton(navigateToTiempoScreen:() -> Unit){
                 text = stringResource(id = R.string.search_city),
                 style = MaterialTheme.typography.bodyLarge
             )
-            IconButton(onClick = { /*TODO RECONOCIMIENTO DE VOZ. POR COMO ESTÁN PUESTOS LOS CLICKABLES SE PULSA DOS VECES NO SÉ LA RAZÓN*/}) {
+            IconButton(onClick = { speechToText.launch(Unit) }) {
                 Icon(
                     imageVector = Icons.Filled.Mic,
                     contentDescription = stringResource(id = R.string.mic),
@@ -77,10 +92,10 @@ fun HomeSearchBarButton(navigateToTiempoScreen:() -> Unit){
 @Preview
 @Composable
 fun HomeSearchBarPreview(){
-    HomeSearchBarButton(){}
+    HomeSearchBarButton({},{})
 }
 @Preview
 @Composable
 fun HomeScreenPreview(){
-    HomeScreen(){}
+    HomeScreen(navigateToTiempoScreen = {})
 }
