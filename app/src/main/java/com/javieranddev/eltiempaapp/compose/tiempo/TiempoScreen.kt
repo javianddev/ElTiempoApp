@@ -62,7 +62,10 @@ fun TiempoScreen(navController: NavController, viewModel: TiempoViewModel = hilt
             }
         },
         trailingIcon = {
-            IconButton(onClick = { speechToText.launch(Unit) }) {
+            IconButton(onClick = {
+                speechToText.launch(Unit)
+                viewModel.setActive(true)
+            }) {
                 Icon(
                     imageVector = Icons.Filled.Mic,
                     contentDescription = stringResource(id = R.string.mic),
