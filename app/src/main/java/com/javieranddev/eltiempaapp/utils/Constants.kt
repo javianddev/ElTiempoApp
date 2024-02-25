@@ -12,4 +12,8 @@ object Constants {
     /********************************* TEXTOS DE VOZ ******************************/
     const val SPEECH_TEXT_SEARCHBAR: String = "Búsqueda por voz"
     const val SPEECH_TEXT_NO_AVAILABLE:String ="La búsqueda por voz no está disponible"
+
+
+    /******************************** ARGUMENTOS NAVEGACIÓN *******************************************/
+    const val EMPTY_QUERY: String = ""
 }

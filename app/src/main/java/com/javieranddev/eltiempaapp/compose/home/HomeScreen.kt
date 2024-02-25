@@ -32,26 +32,26 @@ import com.javieranddev.eltiempaapp.utils.SpeechToText
 import com.javieranddev.eltiempaapp.viewmodel.HomeViewModel
 
 @Composable
-fun HomeScreen(modifier: Modifier = Modifier, navigateToTiempoScreen: () -> Unit, viewModel: HomeViewModel = hiltViewModel()){
+fun HomeScreen(modifier: Modifier = Modifier, navigateToTiempoScreen: (String?) -> Unit, viewModel: HomeViewModel = hiltViewModel()){
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
             .fillMaxWidth()
     ){
-        HomeSearchBarButton(navigateToTiempoScreen) { viewModel.changeTextValue(it) }
+        HomeSearchBarButton(navigateToTiempoScreen = navigateToTiempoScreen)
     }
 }
 
 /*TODO IMPLEMENTADA LA FUNCIÓN PARA RECONOCER VOZ, AHORA HAY QUE IMPLEMENTAR QUE SE BUSQUE*/
 @Composable
-fun HomeSearchBarButton(navigateToTiempoScreen: () -> Unit, changeTextValue: (String) -> Unit){
+fun HomeSearchBarButton(navigateToTiempoScreen: (String?) -> Unit){
 
     val context = LocalContext.current
     val speechToText = rememberLauncherForActivityResult(
         contract = SpeechToText(context),
         onResult = {
-            changeTextValue(it.toString())
+            navigateToTiempoScreen(it.toString().replace(Regex("[\\[\\]]"), ""))
         }
     )
 
@@ -65,7 +65,7 @@ fun HomeSearchBarButton(navigateToTiempoScreen: () -> Unit, changeTextValue: (St
                 .fillMaxWidth()
                 .clip(CircleShape)
                 .background(Color.LightGray)
-                .clickable { navigateToTiempoScreen() }
+                .clickable { navigateToTiempoScreen("") }
         ){
             Icon(
                 imageVector = Icons.Filled.Search,
@@ -77,7 +77,9 @@ fun HomeSearchBarButton(navigateToTiempoScreen: () -> Unit, changeTextValue: (St
                 text = stringResource(id = R.string.search_city),
                 style = MaterialTheme.typography.bodyLarge
             )
-            IconButton(onClick = { speechToText.launch(Unit) }) {
+            IconButton(onClick = {
+                speechToText.launch(Unit)
+            }) {
                 Icon(
                     imageVector = Icons.Filled.Mic,
                     contentDescription = stringResource(id = R.string.mic),
@@ -92,7 +94,7 @@ fun HomeSearchBarButton(navigateToTiempoScreen: () -> Unit, changeTextValue: (St
 @Preview
 @Composable
 fun HomeSearchBarPreview(){
-    HomeSearchBarButton({},{})
+    HomeSearchBarButton(navigateToTiempoScreen = {})
 }
 @Preview
 @Composable

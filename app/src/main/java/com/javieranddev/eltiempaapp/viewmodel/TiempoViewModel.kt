@@ -4,6 +4,7 @@ import android.database.sqlite.SQLiteException
 import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.javieranddev.eltiempaapp.local.model.SearchText
@@ -14,10 +15,19 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class TiempoViewModel @Inject constructor(private val municipalityRepository: MunicipalityRepository): ViewModel(){
+class TiempoViewModel @Inject constructor(
+    private val municipalityRepository: MunicipalityRepository,
+    savedStateHandle: SavedStateHandle = SavedStateHandle()
+): ViewModel(){
 
     private val _searchBarState = mutableStateOf(SearchBarUiState())
     val searchBarState: MutableState<SearchBarUiState> = _searchBarState
+
+    private val homeQuery = checkNotNull(savedStateHandle.get<String>("query"))
+
+    init{
+        _searchBarState.value = _searchBarState.value.copy(query = homeQuery)
+    }
 
     fun setQuery(query: String){
         _searchBarState.value = _searchBarState.value.copy(query = query)

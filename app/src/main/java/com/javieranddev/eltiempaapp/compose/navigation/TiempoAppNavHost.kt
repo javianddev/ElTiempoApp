@@ -8,10 +8,12 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
+import androidx.navigation.navArgument
 import com.javieranddev.eltiempaapp.compose.about.AboutScreen
 import com.javieranddev.eltiempaapp.compose.home.HomeScreen
 import com.javieranddev.eltiempaapp.compose.tiempo.TiempoScreen
 import com.javieranddev.eltiempaapp.compose.stats.StatsScreen
+import com.javieranddev.eltiempaapp.utils.Constants
 
 @Composable
 fun TiempoAppNavHost(navController: NavHostController, modifier: Modifier = Modifier){
@@ -25,7 +27,7 @@ fun TiempoAppNavHost(navController: NavHostController, modifier: Modifier = Modi
 
         composable(route = AppScreen.HomeScreen.route){
             HomeScreen(navigateToTiempoScreen = {
-                    navController.navigate(AppScreen.TiempoScreen.route)
+                    navController.navigate(AppScreen.TiempoScreen.route + "?query=$it")
             })
         }
 
@@ -41,10 +43,13 @@ fun TiempoAppNavHost(navController: NavHostController, modifier: Modifier = Modi
 
 fun NavGraphBuilder.tiempoNavGraph(navController: NavController){
     navigation(
-        startDestination = AppScreen.TiempoScreen.route,
+        startDestination = AppScreen.TiempoScreen.route + "?query={query}",
         route = Graph.Tiempo.route
     ){
-        composable(route = AppScreen.TiempoScreen.route){
+        composable(
+            route = AppScreen.TiempoScreen.route + "?query={query}",
+            arguments = listOf(navArgument("query") {defaultValue = Constants.EMPTY_QUERY})
+        ){
             TiempoScreen(navController = navController)
         }
     }

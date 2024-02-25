@@ -1,10 +1,15 @@
 package com.javieranddev.eltiempaapp.compose.tiempo
 
-
 import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.LocationCity
@@ -17,13 +22,13 @@ import androidx.compose.material3.SearchBar
 import androidx.compose.material3.SearchBarDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -77,15 +82,12 @@ fun TiempoScreen(navController: NavController, viewModel: TiempoViewModel = hilt
         modifier = Modifier
     ) {
 
-        LaunchedEffect(key1 = searchBarUiState.query.length >= 4 ){
+        if (searchBarUiState.active && searchBarUiState.query.length >= 3){
             viewModel.getSearchText()
-        }
-        if (searchBarUiState.active){
             searchBarUiState.searchTexts.forEach {
                 SearchBarText(it)
             }
         }
-
     }
 }
 
@@ -95,20 +97,23 @@ fun SearchBarText(searchText: SearchText) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
-            .padding(vertical = dimensionResource(id = R.dimen.padding_small))
+            .fillMaxWidth()
             .clickable { /*TODO EJECUTAR UNA FUNCIÓN QUE CONSULTE EL TIEMPO...MANDAR EL SEARCHTEXT.MUNCOD. HAY QUE QUITAR LAS TILDES Y DEMÁS SIGNOS DEL ESTILO*/ }
     ) {
-        Icon(
-            imageVector = Icons.Filled.LocationCity,
-            contentDescription = null, //Decoración
-            tint = Color.Black,
-        )
-        /*TODO CAMBIAR EL ICON POR UNA BANDERA DINÁMICA DE LA COMUNIDAD AUTÓNOMA*/
-        Text(
-            text = "${searchText.munName}, ${searchText.provinceName}, ${searchText.CAName}",
-            style = MaterialTheme.typography.bodyLarge
-        )
-
+        Box(
+            modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_medium))
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.la_rioja),
+                contentDescription = null, //Decoración
+                modifier = Modifier.size(dimensionResource(id = R.dimen.dimen_24))
+            )
+            /*TODO CAMBIAR EL ICON POR UNA BANDERA DINÁMICA DE LA COMUNIDAD AUTÓNOMA*/
+            Text(
+                text = "${searchText.munName}, ${searchText.provinceName}, ${searchText.CAName}",
+                style = MaterialTheme.typography.bodyLarge,
+                modifier = Modifier.padding(start = dimensionResource(id = R.dimen.padding_extralarge))
+            )
+        }
     }
-
 }
