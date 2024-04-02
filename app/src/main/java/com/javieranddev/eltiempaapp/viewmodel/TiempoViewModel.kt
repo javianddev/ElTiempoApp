@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.javieranddev.eltiempaapp.local.model.SearchText
 import com.javieranddev.eltiempaapp.local.repository.MunicipalityRepository
+import com.javieranddev.eltiempaapp.utils.TiempoUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
@@ -27,6 +28,8 @@ class TiempoViewModel @Inject constructor(
 
     init{
         _searchBarState.value = _searchBarState.value.copy(query = homeQuery)
+        if (homeQuery != null && !homeQuery.isEmpty())
+            _searchBarState.value = _searchBarState.value.copy(active = true)
     }
 
     fun setQuery(query: String){
@@ -44,7 +47,9 @@ class TiempoViewModel @Inject constructor(
     fun getSearchText(){
         viewModelScope.launch{
             try{
-                val searchTexts: List<SearchText> = municipalityRepository.getSearchText(_searchBarState.value.query).first()
+                val normalizedQuery = removeDiacritics(_searchBarState.value.query)
+                Log.i("TiempoViewModel", normalizedQuery)
+                val searchTexts: List<SearchText> = municipalityRepository.getSearchText(normalizedQuery).first()
                 _searchBarState.value = _searchBarState.value.copy(searchTexts = searchTexts)
             } catch(e: SQLiteException){
                 Log.e("ERROR", "Error getting SearchText - ${e.message}")
@@ -54,6 +59,10 @@ class TiempoViewModel @Inject constructor(
         }
     }
 
+    private fun removeDiacritics(query: String): String{
+        val utils = TiempoUtils()
+        return utils.unaccent(query)
+    }
 
 }
 

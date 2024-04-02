@@ -11,7 +11,7 @@ import com.javieranddev.eltiempaapp.local.model.CA
 import com.javieranddev.eltiempaapp.local.model.Municipality
 import com.javieranddev.eltiempaapp.local.model.Province
 
-@Database(entities = [CA::class, Province::class, Municipality::class], version = 2, exportSchema = false)
+@Database(entities = [CA::class, Province::class, Municipality::class], version = 3, exportSchema = false)
 abstract class AppDatabase: RoomDatabase() {
     abstract fun caDao(): CADao
     abstract fun provinceDao(): ProvinceDao

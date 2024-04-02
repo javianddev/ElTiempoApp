@@ -43,7 +43,6 @@ fun HomeScreen(modifier: Modifier = Modifier, navigateToTiempoScreen: (String?) 
     }
 }
 
-/*TODO IMPLEMENTADA LA FUNCIÓN PARA RECONOCER VOZ, AHORA HAY QUE IMPLEMENTAR QUE SE BUSQUE*/
 @Composable
 fun HomeSearchBarButton(navigateToTiempoScreen: (String?) -> Unit){
 

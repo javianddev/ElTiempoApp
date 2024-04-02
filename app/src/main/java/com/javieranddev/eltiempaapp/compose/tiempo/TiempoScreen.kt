@@ -35,6 +35,7 @@ import androidx.navigation.NavController
 import com.javieranddev.eltiempaapp.R
 import com.javieranddev.eltiempaapp.local.model.SearchText
 import com.javieranddev.eltiempaapp.utils.SpeechToText
+import com.javieranddev.eltiempaapp.utils.TiempoComposeUtils
 import com.javieranddev.eltiempaapp.viewmodel.TiempoViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -103,12 +104,8 @@ fun SearchBarText(searchText: SearchText) {
         Box(
             modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_medium))
         ) {
-            Image(
-                painter = painterResource(id = R.drawable.la_rioja),
-                contentDescription = null, //Decoración
-                modifier = Modifier.size(dimensionResource(id = R.dimen.dimen_24))
-            )
-            /*TODO CAMBIAR EL ICON POR UNA BANDERA DINÁMICA DE LA COMUNIDAD AUTÓNOMA*/
+            CAImage(searchText.CAName)
+
             Text(
                 text = "${searchText.munName}, ${searchText.provinceName}, ${searchText.CAName}",
                 style = MaterialTheme.typography.bodyLarge,
@@ -116,4 +113,13 @@ fun SearchBarText(searchText: SearchText) {
             )
         }
     }
+}
+
+@Composable
+fun CAImage(caName: String) {
+    Image(
+        painter = painterResource(id = TiempoComposeUtils.getFlag(caName)),
+        contentDescription = null, //Decoración
+        modifier = Modifier.size(dimensionResource(id = R.dimen.dimen_24))
+    )
 }

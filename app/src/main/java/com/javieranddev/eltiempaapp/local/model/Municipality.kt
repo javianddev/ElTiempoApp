@@ -25,5 +25,9 @@ data class Municipality(
 
     @NonNull
     @ColumnInfo("name")
-    val name: String
+    val name: String,
+
+    @NonNull
+    @ColumnInfo("name_no_diacritics")
+    val nameNoDia: String
 )

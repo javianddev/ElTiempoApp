@@ -40,7 +40,7 @@ interface MunicipalityDao {
     @Query("SELECT CA.name AS CAName, PROVINCE.name AS provinceName, MUNICIPALITY.name AS munName, MUNICIPALITY.province_id || MUNICIPALITY.id_mun AS munCod FROM MUNICIPALITY " +
             "JOIN PROVINCE ON (MUNICIPALITY.province_id = PROVINCE.id_province) " +
             "JOIN CA ON (PROVINCE.ca_id = CA.id_ca)" +
-            "WHERE lower(MUNICIPALITY.name) LIKE '%' || lower(:munName) || '%' LIMIT 7")
+            "WHERE lower(MUNICIPALITY.name_no_diacritics) LIKE '%' || lower(:munName) || '%' LIMIT 7")
     fun getSearchText(munName:String): Flow<List<SearchText>>
 
 }
