@@ -5,14 +5,11 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.LocationCity
 import androidx.compose.material.icons.filled.Mic
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -33,6 +30,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.javieranddev.eltiempaapp.R
+import com.javieranddev.eltiempaapp.compose.navigation.AppScreen
 import com.javieranddev.eltiempaapp.local.model.SearchText
 import com.javieranddev.eltiempaapp.utils.SpeechToText
 import com.javieranddev.eltiempaapp.utils.TiempoComposeUtils
@@ -86,20 +84,20 @@ fun TiempoScreen(navController: NavController, viewModel: TiempoViewModel = hilt
         if (searchBarUiState.active && searchBarUiState.query.length >= 3){
             viewModel.getSearchText()
             searchBarUiState.searchTexts.forEach {
-                SearchBarText(it)
+                SearchBarText(it, navController)
             }
         }
     }
 }
 
 @Composable
-fun SearchBarText(searchText: SearchText) {
+fun SearchBarText(searchText: SearchText, navController: NavController) {
 
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
-            .fillMaxWidth()
-            .clickable { /*TODO EJECUTAR UNA FUNCIÓN QUE CONSULTE EL TIEMPO...MANDAR EL SEARCHTEXT.MUNCOD. HAY QUE QUITAR LAS TILDES Y DEMÁS SIGNOS DEL ESTILO*/ }
+            .fillMaxWidth() /*TODO PONER EN BBDD LAS ID DE LAS PROVINCIAS Y LAS DE LOS MUNICIPIOS CON LOS 0 A LA IZQUIERDA. LA LLAMADA A LA API VA BIEN YA*/
+            .clickable { navController.navigate(AppScreen.DailyWeatherScreen.route + "/${searchText.munCod}/${searchText.munName}") }
     ) {
         Box(
             modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_medium))

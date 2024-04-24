@@ -5,6 +5,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
@@ -13,6 +14,7 @@ import com.javieranddev.eltiempaapp.compose.about.AboutScreen
 import com.javieranddev.eltiempaapp.compose.home.HomeScreen
 import com.javieranddev.eltiempaapp.compose.tiempo.TiempoScreen
 import com.javieranddev.eltiempaapp.compose.stats.StatsScreen
+import com.javieranddev.eltiempaapp.compose.weather.DailyWeatherScreen
 import com.javieranddev.eltiempaapp.utils.Constants
 
 @Composable
@@ -51,6 +53,16 @@ fun NavGraphBuilder.tiempoNavGraph(navController: NavController){
             arguments = listOf(navArgument("query") {defaultValue = Constants.EMPTY_QUERY})
         ){
             TiempoScreen(navController = navController)
+        }
+
+        composable(
+            route = AppScreen.DailyWeatherScreen.route + "/{munCod}/{munName}",
+            arguments = listOf(
+                navArgument("munCod") {type = NavType.IntType},
+                navArgument("munName") {type = NavType.StringType}
+            )
+        ){
+            DailyWeatherScreen(navController = navController)
         }
     }
 }
