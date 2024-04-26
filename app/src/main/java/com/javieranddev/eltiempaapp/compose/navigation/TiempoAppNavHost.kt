@@ -22,18 +22,18 @@ fun TiempoAppNavHost(navController: NavHostController, modifier: Modifier = Modi
 
     NavHost(
         navController = navController,
-        startDestination = AppScreen.HomeScreen.route,
-        route = Graph.Home.route,
+        startDestination = Graph.Home.route,
         modifier = modifier
     ){
 
-        composable(route = AppScreen.HomeScreen.route){
+        /*composable(route = AppScreen.HomeScreen.route) {
             HomeScreen(navigateToTiempoScreen = {
-                    navController.navigate(AppScreen.TiempoScreen.route + "?query=$it")
+                navController.navigate(AppScreen.TiempoScreen.route + "?query=$it")
+                navController.setGraph(tiempoNavGraph(navController))
             })
-        }
+        }*/
 
-        tiempoNavGraph(navController = navController)
+        homeNavGraph(navController = navController) /*TODO EL DRAWER DE INICIO NO LOGRO SOLUCIONARLO*/
 
         statsNavGraph(navController = navController)
 
@@ -43,11 +43,27 @@ fun TiempoAppNavHost(navController: NavHostController, modifier: Modifier = Modi
 
 }
 
+fun NavGraphBuilder.homeNavGraph(navController: NavController){
+
+    navigation(
+        startDestination = AppScreen.HomeScreen.route,
+        route = Graph.Home.route
+    ) {
+        composable(route = AppScreen.HomeScreen.route) {
+            HomeScreen(navigateToTiempoScreen = {
+                navController.navigate(AppScreen.TiempoScreen.route + "?query=$it")
+            })
+        }
+        tiempoNavGraph(navController = navController)
+    }
+}
+
 fun NavGraphBuilder.tiempoNavGraph(navController: NavController){
     navigation(
         startDestination = AppScreen.TiempoScreen.route + "?query={query}",
         route = Graph.Tiempo.route
     ){
+
         composable(
             route = AppScreen.TiempoScreen.route + "?query={query}",
             arguments = listOf(navArgument("query") {defaultValue = Constants.EMPTY_QUERY})
@@ -64,6 +80,7 @@ fun NavGraphBuilder.tiempoNavGraph(navController: NavController){
         ){
             DailyWeatherScreen(navController = navController)
         }
+
     }
 }
 

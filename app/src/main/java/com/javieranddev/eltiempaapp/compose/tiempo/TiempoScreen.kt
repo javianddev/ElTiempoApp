@@ -1,5 +1,6 @@
 package com.javieranddev.eltiempaapp.compose.tiempo
 
+import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -96,7 +97,7 @@ fun SearchBarText(searchText: SearchText, navController: NavController) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
-            .fillMaxWidth() /*TODO PONER EN BBDD LAS ID DE LAS PROVINCIAS Y LAS DE LOS MUNICIPIOS CON LOS 0 A LA IZQUIERDA. LA LLAMADA A LA API VA BIEN YA*/
+            .fillMaxWidth()
             .clickable { navController.navigate(AppScreen.DailyWeatherScreen.route + "/${searchText.munCod}/${searchText.munName}") }
     ) {
         Box(
