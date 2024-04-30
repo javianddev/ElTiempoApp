@@ -21,4 +21,9 @@
     <string name="search_city">Busca tu ciudad</string>
     <string name="devName">Fco Javier Giráldez Delgado</string>
     <string name="devNick">JavierAndDev</string>
+    <string name="precipitation_prob">Prob. Precipitación</string>
+    <string name="not_available">Datos no disponibles</string>
+    <string name="wind">Viento</string>
+    <string name="humidity">Humedad</string>
+    <string name="temperature">Temperatura</string>
 </resources>

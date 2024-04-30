@@ -23,7 +23,7 @@ private val LightColorScheme = lightColorScheme(
     primary = main,
     onPrimary = whitesmoke,
     background = whitesmoke,
-    tertiary = gold
+    tertiary = gold,
 )
 
 @Composable

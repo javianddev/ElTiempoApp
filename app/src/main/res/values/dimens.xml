@@ -10,6 +10,8 @@
     <dimen name="dimen_16">16dp</dimen>
     <dimen name="dimen_24">24dp</dimen>
     <dimen name="dimen_32">32dp</dimen>
+    <dimen name="dimen_42">42dp</dimen>
     <dimen name="dimen_64">64dp</dimen>
+    <dimen name="dimen_72">72dp</dimen>
     <dimen name="dimen_100">100dp</dimen>
 </resources>

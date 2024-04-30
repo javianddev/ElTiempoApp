@@ -42,9 +42,23 @@ val Typography = Typography(
     labelSmall = TextStyle(
         fontFamily = Asap,
         fontWeight = FontWeight.Medium,
+        fontSize = 9.sp,
+        lineHeight = 14.sp,
+        letterSpacing = 0.25.sp
+    ),
+    labelMedium = TextStyle(
+        fontFamily = Asap,
+        fontWeight = FontWeight.Medium,
         fontSize = 11.sp,
         lineHeight = 16.sp,
         letterSpacing = 0.5.sp
+    ),
+    headlineMedium = TextStyle(
+        fontFamily = Asap,
+        fontWeight = FontWeight.Medium,
+        fontSize = 14.sp,
+        lineHeight = 19.sp,
+        letterSpacing = 0.20.sp
     )
     /* Other default text styles to override
     titleLarge = TextStyle(
